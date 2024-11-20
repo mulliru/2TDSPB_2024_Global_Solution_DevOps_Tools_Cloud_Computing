@@ -1,19 +1,17 @@
-# Use uma imagem Python leve
-FROM python:3.8-slim
+FROM python:3.11
 
 # Define o diretório de trabalho
 WORKDIR /app
 
-# Copia o arquivo de dependências e instala as dependências
-COPY app/requirements.txt .
-
+# Copia o requirements.txt e instala as dependências
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia o restante do código da aplicação para o diretório de trabalho
-COPY app/ .
+# Copia o código do back-end
+COPY . .
 
-# Expõe a porta em que a API vai rodar
+# Expor a porta do Flask
 EXPOSE 5000
 
-# Comando para rodar a aplicação
+# Comando para iniciar o servidor Flask
 CMD ["python", "app.py"]
